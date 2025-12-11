@@ -1,0 +1,1 @@
+// Kafelek na głównej stronie
