@@ -1,7 +1,11 @@
 import "./App.css";
-
+import Button from "./components/ui/Button";
 function App() {
-  return <></>;
+  return (
+    <>
+      <Button text={"siema"} />
+    </>
+  );
 }
 
 export default App;
