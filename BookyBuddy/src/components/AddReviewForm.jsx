@@ -1,2 +1,0 @@
-// Panel dodawania recenzji
-//
