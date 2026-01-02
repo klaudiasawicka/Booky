@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Nord palette */
+  --nord0: #2e3440;
+  --nord1: #3b4252;
+  --nord2: #434c5e;
+  --nord3: #4c566a;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+
+  --background: var(--nord6);
+  --foreground: var(--nord0);
+
+  --card: #ffffff;
+  --card-foreground: var(--nord0);
+
+  --popover: #ffffff;
+  --popover-foreground: var(--nord0);
+
+  --primary: var(--nord10);
+  --primary-foreground: #ffffff;
+
+  --secondary: var(--nord4);
+  --secondary-foreground: var(--nord0);
+
+  --muted: var(--nord5);
+  --muted-foreground: var(--nord3);
+
+  --accent: var(--nord8);
+  --accent-foreground: var(--nord0);
+
+  --destructive: var(--nord11);
+  --destructive-foreground: #ffffff;
+
+  --border: var(--nord4);
+  --ring: var(--nord9);
+
+  --radius: 0.625rem;
+}
+
+.dark {
+  --background: var(--nord0);
+  --foreground: var(--nord6);
+
+  --card: var(--nord1);
+  --card-foreground: var(--nord6);
+
+  --popover: var(--nord1);
+  --popover-foreground: var(--nord6);
+
+  --primary: var(--nord8);
+  --primary-foreground: var(--nord0);
+
+  --secondary: var(--nord2);
+  --secondary-foreground: var(--nord6);
+
+  --muted: var(--nord2);
+  --muted-foreground: var(--nord4);
+
+  --accent: var(--nord3);
+  --accent-foreground: var(--nord6);
+
+  --destructive: var(--nord11);
+  --destructive-foreground: var(--nord6);
+
+  --border: var(--nord3);
+  --ring: var(--nord9);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+
+  --radius-lg: var(--radius);
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+  }
+}
