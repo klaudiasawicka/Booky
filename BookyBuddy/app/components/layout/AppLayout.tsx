@@ -1,13 +1,13 @@
 import React from "react";
+import Navbar from "../navbar";
+import { Outlet } from "react-router";
 
 function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="app-page">
-      <div className="app-card">
-        {children}
-        {/* tutaj pojawi się user, main itp */}
-      </div>
-    </div>
+    <>
+      <Navbar />
+      <main className="mx-auto max-w-6xl px-4 py-6">{children}</main>
+    </>
   );
 }
 
