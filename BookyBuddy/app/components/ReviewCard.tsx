@@ -3,12 +3,12 @@ import React from "react";
 
 type CardProps = {
   imageUrl: string;
-  category?: string; // np. "Książka"
+  category?: string;
   title: string;
   author: string;
   description: string;
-  rating: number; // 0..5
-  reviewBy?: string; // np. "Anna Kowalska"
+  rating: number;
+  reviewBy?: string;
   className?: string;
 };
 
@@ -39,15 +39,15 @@ export default function Card({
   return (
     <div
       className={
-        "w-full max-w-md overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm " +
+        "w-full max-w-md overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden group" +
         className
       }
     >
-      <div className="relative">
+      <div className="relative h-48 overflow-hidden">
         <img
           src={imageUrl}
           alt={title}
-          className="h-48 w-full object-cover"
+          className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
           loading="lazy"
         />
         <span className="absolute right-3 top-3 rounded-full bg-slate-900/60 px-3 py-1 text-xs font-medium text-white backdrop-blur">
