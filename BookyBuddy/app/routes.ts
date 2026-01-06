@@ -12,6 +12,9 @@ export default [
   layout("routes/app.tsx", [
     index("routes/home.tsx"),
     route("welcome", "routes/welcome.tsx"), // /welcome
+    route("addnewrec", "routes/addrec.tsx"), // dodanie nowej recenzji
+    route("reviewDetails", "routes/review.$id.tsx"),
+    route("profileDetails", "routes/profileDetails.tsx"), // strona profilowa
   ]),
 
   // layout dla Auth czyli login, rejestracja
