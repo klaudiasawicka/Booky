@@ -20,9 +20,9 @@ public class Book {
     private String title;
     private String author;
     private List<String> tags;
-    private List<String> subjects;
     private double avgRating = 0.0;
     private int ratingsCount = 0;
+    private String coverUrl;
 
     private String createdByUserId;
     private Instant createdAt;

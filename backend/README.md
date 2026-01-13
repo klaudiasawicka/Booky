@@ -64,7 +64,7 @@ Returns a jwt token
 
 #### Response example
 
-```json
+```
   example@mail.com
 ```
 
@@ -78,7 +78,7 @@ Returns a jwt token
 
 #### Response example
 
-```json
+```
   Deleted a user
 ```
 
@@ -107,7 +107,7 @@ Returns a jwt token
         ],
         "avgRating": 4.5,
         "ratingsCount": 5,
-        "coverUrl": "https://bookbuddy.blob.core.windows.net/book-covers/8a3c.jpg"
+        "coverUrl": "https://bookbuddy.blob.core.windows.net/book-covers/8a3c.jpg",
         "id": "6962f567f9565cbc5bedb9e0"
     },
     {
@@ -117,12 +117,9 @@ Returns a jwt token
             "Desing patterns",
             "Programming"
         ],
-        "subject": [
-          "Programming"
-        ],
         "avgRating": 5.0,
         "ratingsCount": 2,
-        "coverUrl": "https://bookbuddy.blob.core.windows.net/book-covers/8a3c.jpg"
+        "coverUrl": "https://bookbuddy.blob.core.windows.net/book-covers/8a3c.jpg",
         "id": "6964bab6fe1abf37429662ea"
     },
     .....
@@ -148,12 +145,9 @@ Returns a jwt token
             "Programming",
             "Refactoring"
         ],
-        "subject": [
-          "Programming"
-        ],
         "avgRating": 4.5,
         "ratingsCount": 5,
-        "coverUrl": "https://bookbuddy.blob.core.windows.net/book-covers/8a3c.jpg"
+        "coverUrl": "https://bookbuddy.blob.core.windows.net/book-covers/8a3c.jpg",
         "id": "6962f567f9565cbc5bedb9e0"
     }
   ]
@@ -170,12 +164,11 @@ Returns a jwt token
 
 #### Request body
 
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `title` | `string` | **Required**. Book title |
-| `author` | `string` | **Required**. Book author |
-| `tags` | `Array[string]` | **Optional**. List of tags |
-| `subjects` | `Array[string]` | **Optional**. List of subjects |
+| Parameter | Type            | Description                |
+|:----------|:----------------|:---------------------------|
+| `title`   | `string`        | **Required**. Book title   |
+| `author`  | `string`        | **Required**. Book author  |
+| `tags`    | `Array[string]` | **Optional**. List of tags |
 
 Returns the created book document
 
@@ -191,11 +184,9 @@ Returns the created book document
             "Programming",
             "Refactoring"
         ],
-        "subject": [
-          "Programming"
-        ],
         "avgRating": 4.5,
         "ratingsCount": 5,
+        "coverUrl": "https://bookbuddy.blob.core.windows.net/book-covers/8a3c.jpg",
         "id": "6962f567f9565cbc5bedb9e0"
     }
   ]
@@ -242,9 +233,9 @@ Returns the created book document
 
 #### Request body
 
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `rating` | `number` | **Required**. Rating |
+| Parameter | Type            | Description           |
+|:----------|:----------------|:----------------------|
+| `rating`  | `number`        | **Required**. Rating  |
 | `comment` | `Array[string]` | **Optional**. Comment |
 
 Returns the created review document

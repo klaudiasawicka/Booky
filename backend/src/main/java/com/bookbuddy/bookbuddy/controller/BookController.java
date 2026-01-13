@@ -6,10 +6,14 @@ import com.bookbuddy.bookbuddy.dto.rating.RatingRequest;
 import com.bookbuddy.bookbuddy.dto.rating.RatingResponse;
 import com.bookbuddy.bookbuddy.service.BookService;
 import com.bookbuddy.bookbuddy.service.RatingService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -26,9 +30,18 @@ public class BookController {
         return bookService.getBooks(null, null, null);
     }
 
-    @PostMapping
-    public BookResponse createBook(@RequestBody BookCreateRequest request, Authentication authentication){
-        return bookService.createBook(request, authentication.getName());
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public BookResponse createBook(@RequestPart("book") String request, @RequestPart(value = "cover", required = false) MultipartFile cover, Authentication authentication){
+        ObjectMapper mapper = new ObjectMapper();
+
+        BookCreateRequest book;
+        try {
+            book = mapper.readValue(request, BookCreateRequest.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        return bookService.createBook(book, authentication.getName(), cover);
     }
 
     @GetMapping("/{bookId}")

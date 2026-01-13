@@ -15,7 +15,5 @@ public interface BookRepository extends MongoRepository<Book, String> {
     @Query()
     List<Book> findByTagsIn(Collection<String> tags);
 
-    List<Book> findBySubjectsContaining(String subject);
-
     List<Book> findByAvgRatingGreaterThan(double rating);
 }

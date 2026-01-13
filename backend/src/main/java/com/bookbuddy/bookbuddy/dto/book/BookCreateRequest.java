@@ -13,5 +13,4 @@ public class BookCreateRequest {
     private String title;
     private String author;
     private List<String> tags;
-    private List<String> subjects;
 }

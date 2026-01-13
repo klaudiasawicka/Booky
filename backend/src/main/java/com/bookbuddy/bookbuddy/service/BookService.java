@@ -11,6 +11,7 @@ import com.bookbuddy.bookbuddy.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Objects;
@@ -23,21 +24,42 @@ public class BookService {
     private final UserRepository userRepository;
     private final ActivityLogService activityLogService;
     private final BookRepositoryImpl bookRepositoryCustom;
+    private final BlobStorageService blobStorageService;
 
-
-    public BookResponse createBook(BookCreateRequest request, String userId){
+    public BookResponse createBook(BookCreateRequest request, String userId, MultipartFile cover){
         Book book = new Book();
         book.setTitle(request.getTitle());
         book.setAuthor(request.getAuthor());
         book.setTags(request.getTags());
-        book.setSubjects(request.getSubjects());
         book.setCreatedByUserId(userId);
+
+        book.setCoverUrl(getBookCoverUrl(cover));
 
         Book saved = bookRepository.save(book);
 
         activityLogService.logActivity(userId, ActionType.ADD_BOOK, saved.getId());
 
         return toBookResponse(saved);
+    }
+
+    public String getBookCoverUrl(MultipartFile cover){
+        String coverUrl;
+        if(cover == null){
+            coverUrl = "GENERIC_BOOK_COVER_URL";
+            return coverUrl;
+        } else if (!Objects.requireNonNull(cover.getContentType()).startsWith("image/")) {
+            throw new IllegalArgumentException("Only images allowed");
+        }
+
+        assert cover != null;
+
+        if (cover.getSize() > 16 * 1024 * 1024) {
+            throw new RuntimeException("Image too large");
+        }
+
+        coverUrl = blobStorageService.uploadBookCover(cover);
+
+        return coverUrl;
     }
 
     public List<BookResponse> getBooks(
@@ -112,9 +134,9 @@ public class BookService {
         dto.setTitle(book.getTitle());
         dto.setAuthor(book.getAuthor());
         dto.setTags(book.getTags());
-        dto.setSubject(book.getSubjects());
         dto.setAvgRating(book.getAvgRating());
         dto.setRatingsCount(book.getRatingsCount());
+        dto.setCoverUrl(book.getCoverUrl());
         return dto;
     }
 }

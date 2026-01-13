@@ -14,10 +14,10 @@ public class BookResponse {
     private String author;
 
     private List<String> tags;
-    private List<String> subject;
 
     private double avgRating;
 
     private int ratingsCount;
+    private String coverUrl;
 
 }
