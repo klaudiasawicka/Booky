@@ -6,10 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class AuthRequest {
-    @NotEmpty public String email;
-    @NotEmpty public String password;
-    public String roles;
+@AllArgsConstructor
+public class RegisterRequest {
+    @NotEmpty private String email;
+    @NotEmpty private String password;
+    private String roles;
 }

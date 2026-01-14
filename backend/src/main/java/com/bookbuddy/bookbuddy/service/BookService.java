@@ -2,6 +2,7 @@ package com.bookbuddy.bookbuddy.service;
 
 import com.bookbuddy.bookbuddy.dto.book.BookCreateRequest;
 import com.bookbuddy.bookbuddy.dto.book.BookResponse;
+import com.bookbuddy.bookbuddy.exception.AccessDeniedException;
 import com.bookbuddy.bookbuddy.exception.BookNotFoundException;
 import com.bookbuddy.bookbuddy.exception.InvalidBookRequestException;
 import com.bookbuddy.bookbuddy.model.Book;
@@ -107,9 +108,9 @@ public class BookService {
 
             return "Successfully deleted book";
         }
-
-
-        return "Not authorized";
+        else {
+            throw new AccessDeniedException("Only admin or the user which created this book can delete it");
+        }
     }
 
     public List<BookResponse> recommendBooks(String userId){
