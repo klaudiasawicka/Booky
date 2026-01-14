@@ -4,11 +4,13 @@ import com.bookbuddy.bookbuddy.dto.book.BookCreateRequest;
 import com.bookbuddy.bookbuddy.dto.book.BookResponse;
 import com.bookbuddy.bookbuddy.dto.rating.RatingRequest;
 import com.bookbuddy.bookbuddy.dto.rating.RatingResponse;
+import com.bookbuddy.bookbuddy.exception.InvalidBookRequestException;
 import com.bookbuddy.bookbuddy.service.BookService;
 import com.bookbuddy.bookbuddy.service.RatingService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -31,17 +33,19 @@ public class BookController {
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public BookResponse createBook(@RequestPart("book") String request, @RequestPart(value = "cover", required = false) MultipartFile cover, Authentication authentication){
+    public ResponseEntity<BookResponse> createBook(@RequestPart("book") String request, @RequestPart(value = "cover", required = false) MultipartFile cover, Authentication authentication){
         ObjectMapper mapper = new ObjectMapper();
 
         BookCreateRequest book;
         try {
             book = mapper.readValue(request, BookCreateRequest.class);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new InvalidBookRequestException("Invalid value of book part");
         }
 
-        return bookService.createBook(book, authentication.getName(), cover);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(bookService.createBook(book, authentication.getName(), cover));
     }
 
     @GetMapping("/{bookId}")

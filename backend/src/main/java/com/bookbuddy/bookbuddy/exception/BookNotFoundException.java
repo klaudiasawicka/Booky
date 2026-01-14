@@ -1,4 +1,4 @@
-package com.bookbuddy.bookbuddy.extension;
+package com.bookbuddy.bookbuddy.exception;
 
 public class BookNotFoundException extends RuntimeException{
     public BookNotFoundException(String id){

@@ -27,6 +27,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'com.azure.spring:spring-cloud-azure-starter-data-cosmos'
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.5"
     implementation "com.azure:azure-storage-blob:12.32.0"
 
     implementation 'io.jsonwebtoken:jjwt-api:0.13.0'

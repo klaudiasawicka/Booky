@@ -2,7 +2,7 @@ package com.bookbuddy.bookbuddy.service;
 
 import com.bookbuddy.bookbuddy.dto.rating.RatingRequest;
 import com.bookbuddy.bookbuddy.dto.rating.RatingResponse;
-import com.bookbuddy.bookbuddy.extension.BookNotFoundException;
+import com.bookbuddy.bookbuddy.exception.BookNotFoundException;
 import com.bookbuddy.bookbuddy.model.Book;
 import com.bookbuddy.bookbuddy.model.Rating;
 import com.bookbuddy.bookbuddy.repository.BookRepository;
@@ -29,7 +29,7 @@ public class RatingService {
         String userId,
         RatingRequest request
     ){
-        Book book = bookRepository.findById(request.getBookId())
+        bookRepository.findById(request.getBookId())
                 .orElseThrow(() -> new BookNotFoundException(request.getBookId()));
 
         Optional<Rating> existingRating = ratingRepository.findByBookIdAndUserId(bookId, userId);

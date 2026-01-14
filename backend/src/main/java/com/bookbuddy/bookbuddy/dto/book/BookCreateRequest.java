@@ -1,5 +1,6 @@
 package com.bookbuddy.bookbuddy.dto.book;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 public class BookCreateRequest {
-    private String title;
-    private String author;
+    @NotEmpty private String title;
+    @NotEmpty private String author;
     private List<String> tags;
 }

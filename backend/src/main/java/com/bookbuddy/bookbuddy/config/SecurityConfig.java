@@ -36,6 +36,7 @@ public class SecurityConfig {
                 })
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api-docs", "/swagger-ui/*").permitAll()
                         .requestMatchers( "/auth/login", "/auth/register", "/error").permitAll()
                         .requestMatchers("/auth/user/**").hasAuthority("ROLES_USER")
                         .requestMatchers("/auth/admin/**", "/users").hasAuthority("ROLES_ADMIN")

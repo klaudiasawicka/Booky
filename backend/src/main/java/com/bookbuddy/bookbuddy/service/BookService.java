@@ -2,7 +2,8 @@ package com.bookbuddy.bookbuddy.service;
 
 import com.bookbuddy.bookbuddy.dto.book.BookCreateRequest;
 import com.bookbuddy.bookbuddy.dto.book.BookResponse;
-import com.bookbuddy.bookbuddy.extension.BookNotFoundException;
+import com.bookbuddy.bookbuddy.exception.BookNotFoundException;
+import com.bookbuddy.bookbuddy.exception.InvalidBookRequestException;
 import com.bookbuddy.bookbuddy.model.Book;
 import com.bookbuddy.bookbuddy.model.Rating;
 import com.bookbuddy.bookbuddy.model.User;
@@ -27,6 +28,9 @@ public class BookService {
     private final BlobStorageService blobStorageService;
 
     public BookResponse createBook(BookCreateRequest request, String userId, MultipartFile cover){
+        if(!validateBookCreateRequest(request)){
+            throw new InvalidBookRequestException("Invalid book create body");
+        }
         Book book = new Book();
         book.setTitle(request.getTitle());
         book.setAuthor(request.getAuthor());
@@ -44,14 +48,12 @@ public class BookService {
 
     public String getBookCoverUrl(MultipartFile cover){
         String coverUrl;
-        if(cover == null){
+        if(cover == null || cover.isEmpty()){
             coverUrl = "GENERIC_BOOK_COVER_URL";
             return coverUrl;
         } else if (!Objects.requireNonNull(cover.getContentType()).startsWith("image/")) {
-            throw new IllegalArgumentException("Only images allowed");
+            throw new InvalidBookRequestException("Only images allowed");
         }
-
-        assert cover != null;
 
         if (cover.getSize() > 16 * 1024 * 1024) {
             throw new RuntimeException("Image too large");
@@ -126,6 +128,16 @@ public class BookService {
                 .toList();
 
         return bookRepositoryCustom.recommendBooks(preferredTags, likedBookIds).stream().map(this::toBookResponse).toList();
+    }
+
+    private boolean validateBookCreateRequest(BookCreateRequest book){
+        if (book.getTitle() == null || book.getTitle().isEmpty()){
+            return false;
+        }
+        else if (book.getAuthor() == null || book.getAuthor().isEmpty()){
+            return false;
+        }
+        return true;
     }
 
     private BookResponse toBookResponse(Book book) {
