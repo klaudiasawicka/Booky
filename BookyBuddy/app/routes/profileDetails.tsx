@@ -7,7 +7,7 @@ function Profile() {
   return (
     <div className="flex min-h-screen w-full items-center justify-center p-6">
       <div className="w-full max-w-lg overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm relative">
-        <div className="bg-[var(--nord14)] w-full max-h-[180px] h-[180px]" />
+        <div className="bg-(--nord14) w-full max-h-[180px] h-[180px]" />
         {/* Avatar  */}
         <div className="absolute left-8 top-[140px] h-20 w-20 overflow-hidden rounded-full border-4 border-white bg-slate-200 shadow-sm">
           <img

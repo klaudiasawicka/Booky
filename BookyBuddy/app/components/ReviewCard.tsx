@@ -24,7 +24,7 @@ function Star({ filled }: { filled: boolean }) {
   );
 }
 
-export default function Card({
+function Card({
   imageUrl,
   category = "Książka",
   title,
@@ -39,7 +39,7 @@ export default function Card({
   return (
     <div
       className={
-        "w-full max-w-md overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden group" +
+        "w-full max-w-md overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm group" +
         className
       }
     >
@@ -86,3 +86,4 @@ export default function Card({
     </div>
   );
 }
+export default Card;

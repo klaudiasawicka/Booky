@@ -10,22 +10,22 @@ function Register() {
     <div className="space-y-4">
       <div>
         <form className="space-y-4">
-          {/* Name and last name */}
-          <label className="text-sm font-medium">Imie i Nazwisko</label>
+          {/* Imie i Nazwisko */}
+          <label className="text-sm font-medium">Imię i nazwisko</label>
           <IconInput
             icon={<User size={18} />}
             type="text"
             placeholder="Jan Kowalski"
           />
           {/* Email */}
-          <label className="text-sm font-medium">Email</label>
+          <label className="text-sm font-medium">Adres email</label>
           <IconInput
             icon={<Mail size={18} />}
             type="email"
             placeholder="twoj@email.com"
           />
-          {/* Password */}
-          <label className="text-sm font-medium">Password</label>
+          {/* Hasło */}
+          <label className="text-sm font-medium">Hasło</label>
           <IconInput
             icon={<Lock size={18} />}
             type="password"
@@ -36,7 +36,7 @@ function Register() {
             className="w-full mt-4"
             onClick={() => navigate("../welcome")}
           >
-            Zaloguj się
+            Zarejestruj się
           </Button>
         </form>
       </div>
@@ -48,8 +48,8 @@ function Register() {
       </div>
       <p className="flex justify-center items-center">
         Masz już konto?{" "}
-        <Link className="pl-2 text-[var(--nord11)]" to="/login">
-          Zarejestruj się
+        <Link className="pl-2 text-(--nord11)" to="/login">
+          Zaloguj się
         </Link>
       </p>
     </div>
