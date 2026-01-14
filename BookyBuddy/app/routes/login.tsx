@@ -10,13 +10,13 @@ function Login() {
     <div className="space-y-4">
       <div>
         <form className="space-y-4">
-          <label className="text-sm font-medium">Email</label>
+          <label className="text-sm font-medium">Adres email</label>
           <IconInput
             icon={<Mail size={18} />}
             type="email"
             placeholder="twoj@email.com"
           />
-          <label className="text-sm font-medium">Password</label>
+          <label className="text-sm font-medium">Hasło</label>
           <IconInput
             icon={<Lock size={18} />}
             type="password"
@@ -39,7 +39,7 @@ function Login() {
       </div>
       <p className="flex justify-center items-center">
         Nie masz konta?{" "}
-        <Link className="pl-2 text-[var(--nord11)]" to="/register">
+        <Link className="pl-2 text---nord11)" to="/register">
           Zarejestruj się
         </Link>
       </p>
