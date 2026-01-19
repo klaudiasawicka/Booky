@@ -1,7 +1,6 @@
 import { Mail, BookOpen, Award, CalendarDays } from "lucide-react";
 import Button from "~/components/ui/Button";
 import StatCard from "~/components/ui/StatCard";
-import Avatar from "~/img/avatar.jpg";
 
 function Profile() {
   return (
@@ -10,11 +9,7 @@ function Profile() {
         <div className="bg-(--nord14) w-full max-h-[180px] h-[180px]" />
         {/* Avatar  */}
         <div className="absolute left-8 top-[140px] h-20 w-20 overflow-hidden rounded-full border-4 border-white bg-slate-200 shadow-sm">
-          <img
-            src={Avatar}
-            alt={"Avatar"}
-            className="h-full w-full object-cover"
-          />
+
         </div>
         {/* Dane */}
         <div className="px-8 pb-8 pt-12">
