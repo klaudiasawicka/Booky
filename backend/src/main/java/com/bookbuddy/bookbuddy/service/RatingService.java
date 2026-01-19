@@ -5,6 +5,7 @@ import com.bookbuddy.bookbuddy.dto.rating.RatingResponse;
 import com.bookbuddy.bookbuddy.exception.BookNotFoundException;
 import com.bookbuddy.bookbuddy.model.Book;
 import com.bookbuddy.bookbuddy.model.Rating;
+import com.bookbuddy.bookbuddy.model.enums.ActionType;
 import com.bookbuddy.bookbuddy.repository.BookRepository;
 import com.bookbuddy.bookbuddy.repository.BookRepositoryImpl;
 import com.bookbuddy.bookbuddy.repository.RatingRepository;
@@ -49,6 +50,8 @@ public class RatingService {
         rating.setCreatedAt(Instant.now());
 
         Rating saved = ratingRepository.save(rating);
+
+        activityLogService.logActivity(userId, ActionType.RATE_BOOK, bookId);
 
         recalculateAverageRating(bookId);
 
