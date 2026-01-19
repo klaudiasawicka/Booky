@@ -1,14 +1,15 @@
 // Card.tsx
 import React from "react";
+import {SecureImage} from "~/components/SecureImage";
 
 type CardProps = {
-  imageUrl: string;
+  bookId: string;
+  coverUrl: string;
   category?: string;
   title: string;
   author: string;
-  description: string;
+  comment?: string;
   rating: number;
-  reviewBy?: string;
   className?: string;
 };
 
@@ -25,13 +26,13 @@ function Star({ filled }: { filled: boolean }) {
 }
 
 function Card({
-  imageUrl,
+  bookId,
+  coverUrl = "",
   category = "Książka",
   title,
   author,
-  description,
+  comment,
   rating,
-  reviewBy,
   className = "",
 }: CardProps) {
   const safeRating = Math.max(0, Math.min(5, Math.round(rating)));
@@ -44,12 +45,11 @@ function Card({
       }
     >
       <div className="relative h-48 overflow-hidden">
-        <img
-          src={imageUrl}
-          alt={title}
-          className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
-          loading="lazy"
-        />
+        {/* className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"*/}
+          <SecureImage
+              url={coverUrl}
+              className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
+          />
         <span className="absolute right-3 top-3 rounded-full bg-slate-900/60 px-3 py-1 text-xs font-medium text-white backdrop-blur">
           {category}
         </span>
@@ -61,8 +61,6 @@ function Card({
         <p className="mt-2 text-sm text-slate-700">
           Autor: <span className="font-medium">{author}</span>
         </p>
-
-        <p className="mt-3 text-sm leading-6 text-slate-600">{description}</p>
 
         <div className="mt-4 flex items-center gap-2">
           <div className="flex items-center gap-1">
@@ -77,11 +75,6 @@ function Card({
 
         <hr className="my-4 border-slate-200" />
 
-        {reviewBy ? (
-          <p className="text-sm text-slate-700">
-            Recenzja: <span className="font-medium">{reviewBy}</span>
-          </p>
-        ) : null}
       </div>
     </div>
   );
