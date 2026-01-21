@@ -79,7 +79,6 @@ public class RatingService {
         bookRepositoryCustom.updateRatingsCount(bookId, count);
     }
 
-    //TODO: make rating count in book also change
     private void recalculateAverageRating(String bookId) {
         List<Rating> ratings = ratingRepository.findAllByBookId(bookId);
 
