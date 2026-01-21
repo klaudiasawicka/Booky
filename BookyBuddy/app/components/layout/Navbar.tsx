@@ -6,20 +6,19 @@ type NavbarProps = {
   title?: string;
 };
 
-export default function Navbar({
-  title = "Recenzje & Rekomendacje",
-}: NavbarProps) {
+export default function Navbar({ title = "BookyBuddy" }: NavbarProps) {
   const navigate = useNavigate();
   const { theme, toggle } = useTheme();
 
   function handleLogout() {
-    navigate("/auth/login");
+    localStorage.removeItem("token");
+    navigate("/login", { replace: true });
   }
 
   return (
     <header className="w-full border-b border-slate-200 bg-white dark:bg-slate-900 dark:border-slate-800">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-        <Link to="/" className="flex items-center gap-3">
+        <Link to="/welcome" className="flex items-center gap-3">
           <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800">
             <Bookmark
               size={18}

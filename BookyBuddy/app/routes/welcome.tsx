@@ -12,32 +12,37 @@ function Welcome() {
 
   useEffect(() => {
     const fetchData = async () => {
-      let tablica = await BookService.getAllBooks();
-      setTabBooks(tablica);
+      let tab = await BookService.getAllBooks();
+      setTabBooks(tab);
     };
     fetchData();
   }, []);
 
   return (
-    <main className="flex items-center justify-center pt-16 pb-4 gap-4">
-      <Button
-        type="button"
-        className="w-auto flex flex-row p-2 justify-center items-center"
-        onClick={() => navigate("../addnewrec")}
-      >
-        <Plus /> <p className="pl-2">Dodaj recenzję</p>
-      </Button>
-      {tabBooks.map((book) => (
-        <div key={book.id}>
-          <Card
-            bookId={book.id}
-            coverUrl={book.coverUrl}
-            title={book.title}
-            author={book.author}
-            rating={book.avgRating}
-          />
-        </div>
-      ))}
+    <main className="flex flex-col items-center justify-center pt-16 pb-4">
+      <div className="flex w-full justify-end">
+        <Button
+          type="button"
+          className="w-auto flex p-2 justify-center items-center"
+          onClick={() => navigate("../addnewrec")}
+        >
+          <Plus /> <p className="pl-2">Dodaj recenzję</p>
+        </Button>
+      </div>
+      <div className="flex flex-wrap w-full gap-4 mt-4 justify-center items-center">
+        {" "}
+        {tabBooks.map((book) => (
+          <div key={book.id}>
+            <Card
+              bookId={book.id}
+              coverUrl={book.coverUrl}
+              title={book.title}
+              author={book.author}
+              rating={book.avgRating}
+            />
+          </div>
+        ))}
+      </div>
     </main>
   );
 }
