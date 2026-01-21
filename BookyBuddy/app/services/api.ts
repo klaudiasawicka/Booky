@@ -3,17 +3,26 @@ export const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 export async function fetchClient(endpoint: string, options: RequestInit = {}) {
   const token = localStorage.getItem("token");
 
-  const headers = {
-    "Content-Type": "application/json",
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    ...options.headers,
-  };
-    console.log("--- DEBUG API ---");
-    console.log("BASE_URL z env:", import.meta.env.VITE_API_URL);
-    console.log("Ostateczny URL:", `${API_URL}${endpoint}`);
+  const isFormData = options.body instanceof FormData;
+
+  const headers = new Headers(options.headers);
+
+  if (token) headers.set("Authorization", `Bearer ${token}`);
+
+  if (!isFormData) {
+    if (!headers.has("Content-Type")) {
+      headers.set("Content-Type", "application/json");
+    }
+  } else {
+    headers.delete("Content-Type");
+  }
+  console.log("--- DEBUG API ---");
+  console.log("BASE_URL z env:", import.meta.env.VITE_API_URL);
+  console.log("Ostateczny URL:", `${API_URL}${endpoint}`);
+
   const response = await fetch(`${API_URL}${endpoint}`, {
     ...options,
-      headers: headers,
+    headers: headers,
   });
 
   const text = await response.text();

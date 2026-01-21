@@ -1,6 +1,5 @@
 // Card.tsx
 import React from "react";
-import {SecureImage} from "~/components/SecureImage";
 
 type CardProps = {
   bookId: string;
@@ -40,16 +39,16 @@ function Card({
   return (
     <div
       className={
-        "w-full max-w-md overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm group" +
+        " max-w-md overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm group hover:shadow-gray-600" +
         className
       }
     >
       <div className="relative h-48 overflow-hidden">
-        {/* className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"*/}
-          <SecureImage
-              url={coverUrl}
-              className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
-          />
+        <img
+          src={coverUrl}
+          alt={coverUrl}
+          className="object-cover hover:scale-125 h-64 w-64"
+        />
         <span className="absolute right-3 top-3 rounded-full bg-slate-900/60 px-3 py-1 text-xs font-medium text-white backdrop-blur">
           {category}
         </span>
@@ -74,7 +73,6 @@ function Card({
         </div>
 
         <hr className="my-4 border-slate-200" />
-
       </div>
     </div>
   );

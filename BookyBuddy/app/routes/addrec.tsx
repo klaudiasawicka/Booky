@@ -21,12 +21,11 @@ function AddRec() {
     if (cover) {
       formData.append("cover", cover);
     }
-    const bookBlob = new Blob(
-      [JSON.stringify({ title, author, description })],
-      { type: "application/json" },
-    );
+    const bookBlob = new Blob([JSON.stringify({ title, author })], {
+      type: "application/json",
+    });
 
-    formData.append("book", bookBlob);
+    formData.append("book", bookBlob, "book.json");
 
     try {
       await fetchClient("/books", { method: "POST", body: formData });
@@ -49,7 +48,7 @@ function AddRec() {
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
             setDescription(e.target.value)
           }
-                    placeholder={"Podaj opis"}
+          placeholder={"Podaj opis"}
         />
         <label className="flex flex-row text-sm font-medium">
           Tytuł
