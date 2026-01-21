@@ -160,6 +160,7 @@ public class BookService {
         }
     }
 
+
     public List<BookResponse> recommendBooks(String userId){
         userRepository.findByEmail(userId).orElseThrow(() -> new UsernameNotFoundException("Not found"));
 
@@ -182,9 +183,6 @@ public class BookService {
         if (book.getTitle() == null || book.getTitle().isEmpty()){
             return false;
         }
-        else if (book.getAuthor() == null || book.getAuthor().isEmpty()){
-            return false;
-        }
-        return true;
+        else return book.getAuthor() != null && !book.getAuthor().isEmpty();
     }
 }
