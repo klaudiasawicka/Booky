@@ -65,6 +65,8 @@ public class AuthService {
             throw new InvalidRegisterRequestException("Password is empty");
         }else if (request.getPassword().length() < 8 || request.getPassword().length() > 30){
             throw new InvalidRegisterRequestException("Password should be between 8 to 30 characters");
+        }else if(request.getNameAndSurname() == null || request.getNameAndSurname().isEmpty()){
+            throw new InvalidRegisterRequestException("Name and Surname is empty");
         }
     }
 }
