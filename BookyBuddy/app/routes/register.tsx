@@ -22,6 +22,8 @@ const RegisterResponseSchema = z.union([
   z.string().min(1), // backend zwraca token jako string
 ]);
 
+
+
 function Register() {
   // wykorzystujemy do nawigacji
   const navigate = useNavigate();

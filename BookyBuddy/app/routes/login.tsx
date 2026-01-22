@@ -2,7 +2,7 @@ import { useNavigate, Link, useLocation } from "react-router";
 import { Mail, Lock } from "lucide-react";
 import { IconInput } from "~/components/IconInput";
 import Button from "~/components/ui/Button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { fetchClient } from "~/services/api";
 import * as Toast from "@radix-ui/react-toast";
 
@@ -15,6 +15,7 @@ function Login() {
   const [successToastOpen, setSuccessToastOpen] = useState(
     !!location.state?.registrationSuccess,
   );
+  
   const [errorToastOpen, setErrorToastOpen] = useState(false);
 
   const handleLogin = async (e) => {
@@ -36,6 +37,13 @@ function Login() {
       setErrorToastOpen(true);
     }
   };
+
+  useEffect(() => {
+    if (location.state?.registrationSuccess) {
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, []);
+
 
   return (
     <Toast.Provider swipeDirection="right">

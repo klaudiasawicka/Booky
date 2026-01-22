@@ -21,7 +21,6 @@ const AuthService = {
 
   logout: () => {
     localStorage.removeItem("token")
-    // Odświeża nam to stronę
     window.location.href = "/login"
   }
 };
