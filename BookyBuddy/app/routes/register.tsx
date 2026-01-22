@@ -4,8 +4,8 @@ import { IconInput } from "~/components/IconInput";
 import Button from "~/components/ui/Button";
 import { fetchClient } from "~/services/api";
 import { useState } from "react";
-import * as z from "zod";
 import * as Toast from "@radix-ui/react-toast";
+import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -21,8 +21,6 @@ type RegisterForm = z.infer<typeof RegisterSchema>;
 const RegisterResponseSchema = z.union([
   z.string().min(1), // backend zwraca token jako string
 ]);
-
-
 
 function Register() {
   // wykorzystujemy do nawigacji
