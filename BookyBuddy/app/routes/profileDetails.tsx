@@ -1,4 +1,4 @@
-import { Mail, BookOpen, Award, CalendarDays } from "lucide-react";
+import { Mail, BookOpen, Award, CalendarDays, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import Button from "~/components/ui/Button";
 import StatCard from "~/components/ui/StatCard";
@@ -6,11 +6,11 @@ import UserService from "~/services/UserService";
 
 function Profile() {
   type takeUser = {
-    name: string;
     email: string;
+    nameAndSurname: string;
   };
 
-  const [userMe, setUserMe] = useState<takeUser>(null);
+  const [userMe, setUserMe] = useState<takeUser>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,15 +28,22 @@ function Profile() {
         <div className="absolute left-8 top-[140px] h-20 w-20 overflow-hidden rounded-full border-4 border-white bg-slate-200 shadow-sm"></div>
         {/* Dane */}
         <div className="px-8 pb-8 pt-12">
-          <div className="flex items-start justify-between gap-4 flex-col">
-            <h2>{userMe.name}</h2>
-            <div className="flex text-slate-500 justify-center items-center">
-              <Mail size={18} />
-              <p className="pl-3">Makłowska1992@gmail.com</p>
-            </div>
+          <div className="flex items-start gap-2 flex-col">
+              <div className="flex justify-center items-center">
+                  <User size={18} className="text-slate-500"/>
+                <p className="pl-3 text-[14px]">
+                  {userMe?.nameAndSurname}
+                </p>
+              </div>
+              <div className="flex justify-center items-center">
+                <Mail size={18} className="text-slate-500"/>
+                <p className="pl-3 text-[14px]">
+                  {userMe?.email}
+                </p>
+              </div>
           </div>
           {/*  */}
-          <div className="min-w-0 gap-8 flex justify-betwee">
+          <div className="min-w-0 gap-8 flex justify-between">
             <StatCard
               icon={<BookOpen size={20} />}
               value={24}
