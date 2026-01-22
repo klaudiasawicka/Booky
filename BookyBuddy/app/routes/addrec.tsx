@@ -5,25 +5,49 @@ import Input from "~/components/ui/Input";
 import Textarea from "~/components/ui/Textarea";
 import { useNavigate } from "react-router";
 import { fetchClient } from "~/services/api";
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const AddBookSchema = z.object({
+  title: z.string().min(1, "Tytuł nie może być pusty"),
+  author: z.string().min(1, "Podaj autora"),
+  description: z.string().min(1, "Podaj opis ksiąążki"),
+});
+
+type AddBookForm = z.infer<typeof AddBookSchema>;
 
 function AddRec() {
   const [cover, setCover] = useState<File | null>(null);
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [description, setDescription] = useState("");
   const navigate = useNavigate();
 
-  const handleSumbit = async (e) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<AddBookForm>({
+    resolver: zodResolver(AddBookSchema),
+    defaultValues: {
+      title: "",
+      author: "",
+      description: "",
+    },
+    mode: "onSubmit",
+  });
 
+  const onSubmit = async (values: AddBookForm) => {
     const formData = new FormData();
 
     if (cover) {
       formData.append("cover", cover);
     }
-    const bookBlob = new Blob([JSON.stringify({ title, author })], {
-      type: "application/json",
-    });
+
+    const bookBlob = new Blob(
+      [JSON.stringify({ title: values.title, author: values.author })],
+      {
+        type: "application/json",
+      },
+    );
 
     formData.append("book", bookBlob, "book.json");
 
@@ -36,41 +60,44 @@ function AddRec() {
   };
 
   return (
-    <form onSubmit={handleSumbit} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       {/* okładka */}
       <CoverUpload value={cover} onChange={setCover} />
-      <div>
-        <label className="flex flex-row text-sm font-medium">
-          Opis<p className="text-red-500 pl-1">*</p>
-        </label>
-        <Textarea
-          value={description}
-          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-            setDescription(e.target.value)
-          }
-          placeholder={"Podaj opis"}
-        />
-        <label className="flex flex-row text-sm font-medium">
-          Tytuł
-          <p className="text-red-500 pl-1">*</p>
-        </label>
-        <Input
-          value={title}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setTitle(e.target.value)
-          }
-          placeholder={"Podaj tytuł"}
-        />
-        <label className="flex flex-row text-sm font-medium">
-          Autor<p className="text-red-500 pl-1">*</p>
-        </label>
-        <Input
-          value={author}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setAuthor(e.target.value)
-          }
-          placeholder={"Podaj autora"}
-        />
+      <div className="space-y-4">
+        {/* Tytuł */}
+        <div>
+          <label className="flex flex-row text-sm font-medium">
+            Tytuł <span className="text-red-500 pl-1">*</span>
+          </label>
+          <Input {...register("title")} placeholder="Podaj tytuł" />
+          {errors.title && (
+            <p className="text-red-500 text-xs mt-1">{errors.title.message}</p>
+          )}
+        </div>
+
+        {/* Autor */}
+        <div>
+          <label className="flex flex-row text-sm font-medium">
+            Autor <span className="text-red-500 pl-1">*</span>
+          </label>
+          <Input {...register("author")} placeholder="Podaj autora" />
+          {errors.author && (
+            <p className="text-red-500 text-xs mt-1">{errors.author.message}</p>
+          )}
+        </div>
+
+        {/* Opis */}
+        <div>
+          <label className="flex flex-row text-sm font-medium">
+            Opis <span className="text-red-500 pl-1">*</span>
+          </label>
+          <Textarea {...register("description")} placeholder="Podaj opis" />
+          {errors.description && (
+            <p className="text-red-500 text-xs mt-1">
+              {errors.description.message}
+            </p>
+          )}
+        </div>
       </div>
       <div className="flex justify-end items-end">
         <Button className="mr-4" onClick={() => navigate("../welcome")}>
