@@ -12,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 const AddBookSchema = z.object({
   title: z.string().min(1, "Tytuł nie może być pusty"),
   author: z.string().min(1, "Podaj autora"),
-  description: z.string().min(1, "Podaj opis ksiąążki"),
+  description: z.string().min(1, "Podaj opis książki"),
 });
 
 type AddBookForm = z.infer<typeof AddBookSchema>;
