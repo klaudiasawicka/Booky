@@ -5,32 +5,58 @@ import Button from "~/components/ui/Button";
 import { useState, useEffect } from "react";
 import { fetchClient } from "~/services/api";
 import * as Toast from "@radix-ui/react-toast";
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const LoginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8, "Hasło jest za krótkie"),
+});
+
+type LoginForm = z.infer<typeof LoginSchema>;
+
+// Schemat odpowiedzi z backendu
+const LoginResponseSchema = z.union([
+  z.string().min(1), // backend zwraca token jako string
+]);
 
 function Login() {
-  const [userEmail, setUserEmail] = useState<string>("");
-  const [userPass, setUserPass] = useState<string>("");
   const navigate = useNavigate();
   const location = useLocation(); // dostajemy lokalizacje
 
   const [successToastOpen, setSuccessToastOpen] = useState(
     !!location.state?.registrationSuccess,
   );
-  
   const [errorToastOpen, setErrorToastOpen] = useState(false);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginForm>({
+    resolver: zodResolver(LoginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    mode: "onSubmit",
+  });
 
+  const onSubmit = async (values: LoginForm) => {
     try {
       const data = await fetchClient("/auth/login", {
         method: "POST",
-        body: JSON.stringify({ email: userEmail, password: userPass }),
+        body: JSON.stringify({
+          email: values.email,
+          password: values.password,
+        }),
       });
-      console.log("Dane z serwera:", data);
-      if (typeof data === "string" && data.length > 0) {
-        localStorage.setItem("token", data);
-        console.log("Token został zapisany!");
-      }
+      const parsed = LoginResponseSchema.safeParse(data);
+      const token =
+        typeof parsed.data === "string" ? parsed.data : parsed.data.token;
+
+      localStorage.setItem("token", token);
       navigate("/welcome");
     } catch (error) {
       console.error("Błąd logowania:", error);
@@ -44,28 +70,33 @@ function Login() {
     }
   }, []);
 
-
   return (
     <Toast.Provider swipeDirection="right">
       <div className="space-y-4">
         <div>
-          <form onSubmit={handleLogin} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <label className="text-sm font-medium">Adres email</label>
             <IconInput
               icon={<Mail size={18} />}
-              value={userEmail}
-              onChange={(e) => setUserEmail(e.target.value)}
               type="email"
               placeholder="twoj@email.com"
+              {...register("email")}
             />
             <label className="text-sm font-medium">Hasło</label>
             <IconInput
               icon={<Lock size={18} />}
               type="password"
-              value={userPass}
-              onChange={(e) => setUserPass(e.target.value)}
               placeholder="••••••••"
+              {...register("password")}
             />
+            <div>
+              {" "}
+              {errors.password && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.password.message}
+                </p>
+              )}
+            </div>
             <Button type="submit" className="w-full mt-4">
               Zaloguj się
             </Button>

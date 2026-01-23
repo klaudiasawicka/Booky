@@ -95,7 +95,7 @@ function Register() {
             </Button>
           </form>
         </div>
-        {/* Linia lub linia */}
+        {/* Linia coś linia */}
         <div className="flex items-center gap-4">
           <div className="h-px flex-1 bg-slate-200" />
           <span className="text-sm text-slate-500">lub</span>
