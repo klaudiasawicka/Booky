@@ -20,9 +20,6 @@ type Pages = {
   "/addnewrec": {
     params: {};
   };
-  "/reviewDetails": {
-    params: {};
-  };
   "/profileDetails": {
     params: {};
   };
@@ -37,7 +34,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/welcome" | "/addnewrec" | "/reviewDetails" | "/profileDetails" | "/login" | "/register";
+    page: "/" | "/welcome" | "/addnewrec" | "/profileDetails" | "/login" | "/register";
   };
   "routes/index.tsx": {
     id: "routes/index";
@@ -45,7 +42,7 @@ type RouteFiles = {
   };
   "routes/app.tsx": {
     id: "routes/app";
-    page: "/" | "/welcome" | "/addnewrec" | "/reviewDetails" | "/profileDetails";
+    page: "/" | "/welcome" | "/addnewrec" | "/profileDetails";
   };
   "routes/home.tsx": {
     id: "routes/home";
@@ -58,10 +55,6 @@ type RouteFiles = {
   "routes/addrec.tsx": {
     id: "routes/addrec";
     page: "/addnewrec";
-  };
-  "routes/review.$id.tsx": {
-    id: "routes/review.$id";
-    page: "/reviewDetails";
   };
   "routes/profileDetails.tsx": {
     id: "routes/profileDetails";
@@ -88,7 +81,6 @@ type RouteModules = {
   "routes/home": typeof import("./app/routes/home.tsx");
   "routes/welcome": typeof import("./app/routes/welcome.tsx");
   "routes/addrec": typeof import("./app/routes/addrec.tsx");
-  "routes/review.$id": typeof import("./app/routes/review.$id.tsx");
   "routes/profileDetails": typeof import("./app/routes/profileDetails.tsx");
   "routes/auth": typeof import("./app/routes/auth.tsx");
   "routes/login": typeof import("./app/routes/login.tsx");
