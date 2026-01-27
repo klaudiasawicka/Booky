@@ -1,4 +1,4 @@
-import {fetchClient} from "~/services/api";
+import {fetchClient} from "./api";
 import type {LoginRequest, RegisterRequest} from "./../types/auth";
 
 const AuthService = {

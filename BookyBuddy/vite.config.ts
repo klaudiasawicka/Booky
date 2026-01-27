@@ -24,4 +24,10 @@ export default defineConfig({
       }
   },
   plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
+  optimizeDeps: {
+    include: ["react-router"]
+  },
+  resolve: {
+    dedupe: ["react", "react-dom"],
+  },
 });
