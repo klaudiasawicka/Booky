@@ -56,7 +56,7 @@ public class BookService {
     public String getBookCoverUrl(MultipartFile cover){
         String coverUrl;
         if(cover == null || cover.isEmpty()){
-            coverUrl = "GENERIC_BOOK_COVER_URL";
+            coverUrl = "https://bookbuddystorage.blob.core.windows.net/book-covers/generic_cover.png";
             return coverUrl;
         } else if (!Objects.requireNonNull(cover.getContentType()).startsWith("image/")) {
             throw new InvalidBookRequestException("Only images allowed");
