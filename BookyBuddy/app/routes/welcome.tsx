@@ -26,7 +26,7 @@ function Welcome() {
           className="w-auto flex p-2 justify-center items-center"
           onClick={() => navigate("../addnewrec")}
         >
-          <Plus /> <p className="pl-2">Dodaj recenzję</p>
+          <Plus /> <p className="pl-2">Dodaj książkę</p>
         </Button>
       </div>
       <div className="flex flex-wrap w-full gap-4 mt-4 justify-center items-center">

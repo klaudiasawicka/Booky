@@ -103,7 +103,7 @@ function AddRec() {
         <Button className="mr-4" onClick={() => navigate("../welcome")}>
           Anuluj
         </Button>
-        <Button type="submit">Dodaj recenzję</Button>
+        <Button type="submit">Dodaj książkę</Button>
       </div>
     </form>
   );
