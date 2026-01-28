@@ -12,6 +12,8 @@ import com.bookbuddy.bookbuddy.model.User;
 import com.bookbuddy.bookbuddy.model.enums.ActionType;
 import com.bookbuddy.bookbuddy.repository.*;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -92,7 +94,7 @@ public class BookService {
                 .toList();
     }
 
-    //@Cacheable(value = "books", key = "#id")
+    @Cacheable(value = "books", key = "#id")
     public BookResponse getBookById(String id){
         System.out.println("Cache");
         Book book = bookRepository.findById(id)
@@ -101,7 +103,7 @@ public class BookService {
         return BookMapper.toBookResponse(book);
     }
 
-    //@CacheEvict(value = "books", key = "#bookId")
+    @CacheEvict(value = "books", key = "#bookId")
     public BookResponse updateBook(
             BookCreateRequest request,
             MultipartFile cover,
@@ -139,7 +141,7 @@ public class BookService {
         return BookMapper.toBookResponse(book);
     }
 
-    //@CacheEvict(value = "books", key = "#bookId")
+    @CacheEvict(value = "books", key = "#bookId")
     public String deleteBook(String bookId, String email){
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new BookNotFoundException(bookId));
