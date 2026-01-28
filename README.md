@@ -29,9 +29,9 @@ Jeżeli projekt realizowany jest **w zespole 2 lub 3 osób**, obowiązuje nastę
 
 | Pole | Wartość |
 |------|----------|
-| **Imię i nazwisko:** |  |
-| **Numer indeksu:** |  |
-| **Temat projektu:** |  |
+| **Imię i nazwisko:** | Andrii Bryliant |
+| **Numer indeksu:** | 315612 |
+| **Temat projektu:** | Platforma do analizy i rekomendacji książek |
 
 ---
 
